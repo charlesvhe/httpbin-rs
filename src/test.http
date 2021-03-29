@@ -1,0 +1,11 @@
+### test index
+GET http://localhost:8080 HTTP/1.1
+
+### test echo
+POST http://localhost:8080/echo  HTTP/1.1
+
+Hello Charles {{$timestamp}}
+### test
+GET http://localhost:8080/redirect HTTP/1.1
+
+body data

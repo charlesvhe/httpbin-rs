@@ -175,9 +175,9 @@ fn convert(column_property_map: &HashMap<String, String>, ci: ConfigItem) -> Map
 }
 
 pub async fn post(
+    Extension(state): Extension<AppState>,
     Path(meta_code): Path<String>,
     Json(mut input): Json<ConfigItem>,
-    Extension(state): Extension<AppState>,
 ) -> Result<String, CommonError<String>> {
     input.meta_code = meta_code;
 

@@ -103,8 +103,8 @@ pub async fn get_one(
 }
 
 pub async fn post(
-    Json(input): Json<ConfigMeta>,
     Extension(state): Extension<AppState>,
+    Json(input): Json<ConfigMeta>,
 ) -> Result<String, CommonError<String>> {
     let mut qb = QueryBuilder::new(
         "INSERT INTO config_meta(
@@ -132,9 +132,9 @@ pub async fn post(
 }
 
 pub async fn put(
+    Extension(state): Extension<AppState>,
     Path(id): Path<i32>,
     Json(input): Json<ConfigMetaUpdate>,
-    Extension(state): Extension<AppState>,
 ) -> Result<String, CommonError<String>> {
     let mut qb = QueryBuilder::new("UPDATE config_meta SET ");
     let mut has_value: bool = false;

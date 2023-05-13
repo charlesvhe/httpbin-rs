@@ -8,6 +8,8 @@ edition = "2021"
 [dependencies]
 axum = "0"
 tokio = { version = "1", features = ["full"] }
+
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-sqlx = { version = "0", features = ["runtime-tokio-rustls", "any", "sqlite"] }
+
+sea-orm = { version = "^0", features = [ "debug-print", "with-json", "sqlx-sqlite", "runtime-tokio-rustls", "macros" ] }

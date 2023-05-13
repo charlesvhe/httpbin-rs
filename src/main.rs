@@ -1,24 +1,25 @@
 use axum::{Extension, Router};
-use sqlx::SqlitePool;
+use sea_orm::{Database, ConnectionTrait, Statement, DatabaseBackend};
 use std::{fs, net::SocketAddr};
 
 use crate::common::AppState;
 
+pub mod entity;
 pub mod common;
 pub mod config_meta;
 pub mod config_item;
 
 #[tokio::main]
 async fn main() {
+    let db = Database::connect("sqlite::memory:").await.unwrap();
     let app_state = AppState {
-        pool: SqlitePool::connect("sqlite::memory:").await.unwrap(),
+        db: db,
     };
 
-    // init database
-    sqlx::query(&String::from_utf8(fs::read("db/migration/V1_0__schema.sql").unwrap()).unwrap())
-        .execute(&app_state.pool)
-        .await
-        .unwrap();
+    app_state.db.execute(Statement::from_string(
+        DatabaseBackend::Sqlite,
+        String::from_utf8(fs::read("db/migration/V1_0__schema.sql").unwrap()).ok().unwrap()
+    )).await.unwrap();
 
     // build our application with a route
     let router = Router::new()

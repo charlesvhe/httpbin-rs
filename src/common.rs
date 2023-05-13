@@ -3,12 +3,12 @@ use axum::{
     response::{IntoResponse, Response},
     Json,
 };
+use sea_orm::DatabaseConnection;
 use serde::{Deserialize, Serialize};
-use sqlx::SqlitePool;
 
 #[derive(Clone, Debug)]
 pub struct AppState {
-    pub pool: SqlitePool,
+    pub db: DatabaseConnection,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -42,8 +42,8 @@ impl<T: Serialize> IntoResponse for CommonError<T> {
     }
 }
 
-impl From<sqlx::Error> for CommonError<String> {
-    fn from(e: sqlx::Error) -> Self {
+impl From<sea_orm::DbErr> for CommonError<String> {
+    fn from(e: sea_orm::DbErr) -> Self {
         CommonError {
             err: StatusCode::INTERNAL_SERVER_ERROR,
             data: Some(e.to_string()),

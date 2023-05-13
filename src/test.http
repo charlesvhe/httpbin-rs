@@ -24,8 +24,8 @@ content-type: application/json
   "column_name": "varchar5",
   "description": "地址",
   "sort": 10,
-  "gmt_create": "2018-05-10 17:54:31",
-  "gmt_modified": "2018-05-10 21:14:08"
+  "gmt_create": "2018-05-10T17:54:31",
+  "gmt_modified": "2018-05-10T21:14:08"
 }
 
 
@@ -42,24 +42,15 @@ POST http://localhost:3000/ConfigItem/userType
 content-type: application/json
 
 {
-  "app_id": "platform",
-  "meta_code": "userType",
-  "parent_id": 0,
-  "sort": 0,
-  "varchar1": "user",
-  "varchar2": "普通用户",
-  "varchar3": "刚注册还未认证用户",
-  "varchar4": "1.jpg",
-  "varchar5": "",
-  "text1": "",
-  "text2": "",
-  "text3": "",
-  "decimal1": 0.0,
-  "decimal2": 0.0,
-  "decimal3": 0.0,
-  "datetime1": "2022-10-17 07:36:08",
-  "datetime2": "2022-10-17 07:36:08",
-  "datetime3": "2022-10-17 07:36:08",
-  "gmt_create": "2018-05-10 17:54:31",
-  "gmt_modified": "2018-05-10 21:14:08"
+  "code": "testuser",
+  "name": "测试用户",
+  "description": "测试用户",
+  "img": "1.jpg"
+}
+
+PUT http://localhost:3000/ConfigItem/userType/1
+content-type: application/json
+
+{
+  "name": "普通用户AAA"
 }
